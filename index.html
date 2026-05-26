@@ -1,1 +1,773 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Aeterno RP | Форум проекта</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --body-bg: #f5f7ff;
+            --accent-color: #0a5ca8;
+            --card-bg: #ffffff;
+            --text-main: #0a2a4a;
+            --border-light: #cce0f0;
+        }
+        body {
+            background: var(--body-bg);
+            font-family: 'Segoe UI', 'Courier New', monospace;
+            color: var(--text-main);
+            padding: 20px;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 10% 20%, rgba(0, 100, 200, 0.05) 2%, transparent 2.5%),
+                              repeating-linear-gradient(45deg, rgba(0, 100, 200, 0.03) 0px, rgba(0, 100, 200, 0.03) 2px, transparent 2px, transparent 8px);
+            background-size: 40px 40px, 16px 16px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .tabs {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+            background: var(--card-bg);
+            padding: 10px 20px;
+            border-radius: 60px;
+            border: 1px solid var(--border-light);
+        }
+        .tab-btn {
+            background: #eef3fc;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: bold;
+            color: var(--accent-color);
+            cursor: pointer;
+        }
+        .tab-btn.active {
+            background: var(--accent-color);
+            color: white;
+        }
+        .tab-content {
+            display: none;
+            animation: fade 0.2s ease;
+        }
+        .tab-content.active-tab {
+            display: block;
+        }
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(6px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 28px;
+            padding: 28px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-light);
+        }
+        h1 {
+            font-size: 2.8rem;
+            color: var(--accent-color);
+        }
+        .invite-code {
+            background: #e8f0fe;
+            display: inline-block;
+            padding: 12px 28px;
+            margin: 15px 0;
+            font-size: 1.8rem;
+            font-weight: bold;
+            border-radius: 60px;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+        }
+        .feature-item {
+            background: #f0f6ff;
+            padding: 12px 20px;
+            border-radius: 40px;
+            display: inline-block;
+            margin: 5px 8px 5px 0;
+        }
+        .application-block {
+            background: #eef3fc;
+            border-radius: 24px;
+            padding: 20px;
+            margin: 20px 0;
+            cursor: pointer;
+            border: 2px dashed var(--border-light);
+        }
+        .application-sample {
+            background: #f9f9ff;
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid var(--accent-color);
+            display: none;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 40px;
+            border: 1px solid var(--border-light);
+            font-family: monospace;
+        }
+        .btn-primar
 
+y {
+            background: var(--accent-color);
+            color: white;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+        .games-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .game-card {
+            background: #f0f6ff;
+            padding: 20px;
+            border-radius: 24px;
+            flex: 1;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+        .game-area {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 20px;
+            border: 1px solid var(--border-light);
+            min-height: 420px;
+        }
+        .partner-card {
+            background: #e8f0fe;
+            border-radius: 24px;
+            padding: 24px;
+            text-align: center;
+        }
+        .promo-input-group {
+            display: flex;
+            gap: 12px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .promo-input-group input {
+            flex: 2;
+            padding: 12px;
+            border-radius: 60px;
+            border: 1px solid var(--border-light);
+        }
+        .clicker-circle {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle at 30% 30%, #ff4444, #aa0000);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            position: absolute;
+            border: 3px solid #ffaa66;
+        }
+        .coin-3d {
+            width: 120px;
+            height: 120px;
+            margin: 20px auto;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+        .coin-side {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            background: linear-gradient(145deg, #f5c542, #d4a017);
+            backface-visibility: hidden;
+        }
+        .coin-front { transform: rotateY(0deg); }
+        .coin-back { transform: rotateY(180deg); }
+        @keyframes flipCoin { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(720deg); } }
+        .flip-animation { animation: flipCoin 0.8s ease-out; }
+        @keyframes shakePlayer { 0% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } 100% { transform: translateX(0); } }
+        @keyframes shakeBot { 0% { transform: translateX(0); } 25% { transform: translateX(10px); } 75% { transform: translateX(-10px); } 100% { transform: translateX(0); } }
+        @keyframes bounceWin { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        @keyframes pulseNumber { 0% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(1); opacity: 0.7; } }
+        .rps-arena { display: flex; justify-content: space-between; gap: 20px; margin: 20px 0; flex-wrap: wrap; }
+        .rps-card { flex: 1; text-align: center; background: #eef3fc; border-radius: 24px; padding: 20px; }
+        .rps-choice-icon { font-size: 4rem; margin: 10px; }
+        .guess-number { font-size: 3rem; text-align: center; margin: 15px; animation: pulseNumber 1s infinite; }
+        .footer { text-align: center; margin-top: 30px; font-size: 12px; color: #777; }
+        @media (max-width: 700px) {
+            .invite-code { font-size: 1.2rem; }
+            .tab-btn { padding: 6px 14px; }
+        }
+        /* скрытые элементы админ-панели (доступны только через секретный код) */
+        .admin-panel {
+            position: fixed;
+            b
+
+ottom: 20px;
+            right: 20px;
+            background: #1e2a3a;
+            color: white;
+            padding: 18px;
+            border-radius: 24px;
+            width: 320px;
+            z-index: 1000;
+            box-shadow: 0 6px 18px black;
+            border: 1px solid #5a9fd4;
+            font-size: 12px;
+            display: none;
+        }
+        .admin-panel input, .admin-panel select {
+            width: 100%;
+            padding: 6px;
+            margin-bottom: 8px;
+            border-radius: 20px;
+            border: none;
+        }
+        .admin-panel button {
+            width: 100%;
+            margin-top: 8px;
+            padding: 6px;
+            border-radius: 40px;
+            background: var(--accent-color);
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+        .editable {
+            cursor: pointer;
+            outline: 1px dashed rgba(10,92,168,0.3);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card" style="text-align:center;">
+        <h1 id="mainTitle">✨ AETERNO RP ✨</h1>
+        <div class="invite-code" id="inviteBlock">🔑 N6L9OXVT</div>
+        <div id="mainDesc">Добро пожаловать на RP проект в MultiCraft «Aeterno RP!»</div>
+    </div>
+
+    <div class="tabs" id="tabsContainer">
+        <button class="tab-btn active" data-tab="tabForum">📜 Форум</button>
+        <button class="tab-btn" data-tab="tabGames">🎮 Мини-игры</button>
+        <button class="tab-btn" data-tab="tabRules">📖 Правила</button>
+        <button class="tab-btn" data-tab="tabPromo">🎁 Промокоды</button>
+        <button class="tab-btn" data-tab="tabPartners">🤝 Партнёры</button>
+    </div>
+
+    <div id="tabForum" class="tab-content active-tab">
+        <div class="card">
+            <h2>📜 Форум проекта</h2>
+            <div id="featuresList">
+                <div class="feature-item">📝 Заявки на вступление</div>
+                <div class="feature-item">⚠️ Жалобы</div>
+                <div class="feature-item">💡 Предложения</div>
+                <div class="feature-item">📨 Связь с администрацией</div>
+            </div>
+            <div id="applicationTrigger" class="application-block">
+                <strong>📋 ПОДАЧА ЗАЯВЛЕНИЯ</strong><br> Нажмите, чтобы открыть образец
+            </div>
+            <div id="applicationSample" class="application-sample">
+                <h3>📝 ОБРАЗЕЦ ЗАЯВЛЕНИЯ</h3>
+                <form id="appForm">
+                    <div class="form-group"><input type="text" id="appNick" placeholder="Ваш игровой ник" required></div>
+                    <div class="form-group">
+                        <label>Дней (уровень) на сервере:</label>
+                        <select id="appLevel" size="1" style="width:100%;" required>
+                            <option value="">-- Выберите уровень --</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><textarea id="appText" rows="4" placeholder="Текст заявления..." required></textarea></div>
+                    <button type="submit" class="btn-primary">🚀 ОТПРАВИТЬ</button>
+                </form>
+                <div id="appStatus" style="margin-top:15px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tabGames" class="tab-content">
+        <div class="card">
+            <h2>🎮 МИНИ-ИГРЫ</h2>
+            <div class="games-grid">
+                <div class="game-card" data-game="guess">🔢 Угадай число</div>
+                <div class="game-card" data-game="clicker">⚡ Кликер</div>
+                <div class="game-card" data-game="rps">✂️ КНБ</div>
+                <div class="game-card" data-game="coin">🪙 Орёл и решка</div>
+            </div>
+            <div id="gameArea" class="game-area">✨ Выбери игру ✨</div>
+        </div>
+    </div>
+
+    <div id="tabRules" class="tab-content">
+        <div class="card">
+            <h2>📖 Правила сервера</h2>
+            <p>1. Уважайте других. 2. Без читов. 3. RP отыгрыш.</p>
+            <div style="margin-top:20px;"><h3>📨 Связь с администрацией</h3><p>👑
+
+Владелец: @LolikRelax</p><p>📢 <a href="https://t.me/aeternotp">https://t.me/aeternotp</a></p></div>
+        </div>
+    </div>
+
+    <div id="tabPromo" class="tab-content">
+        <div class="card">
+            <h2>🎁 Активация промокода</h2>
+            <div class="promo-input-group"><input type="text" id="promoCode" placeholder="Введите промокод"><button id="activatePromoBtn">Активировать</button></div>
+            <div id="promoStatus"></div>
+        </div>
+    </div>
+
+    <div id="tabPartners" class="tab-content">
+        <div class="card">
+            <div class="partner-card"><h3>🔥 РАЙСКИЙ АД 🔥</h3><p>PvP-сервер с анархией</p><div class="invite-code" style="font-size:1.2rem; margin:10px auto;">🔑 CFDUULR6</div><button id="copyPartnerInvite" style="background:var(--accent-color); color:white; border:none; padding:8px 20px; border-radius:40px;">Копировать инвайт</button></div>
+        </div>
+    </div>
+    <div class="footer">⚡ Заявки уходят в GitHub Issues</div>
+</div>
+
+<script>
+    // ========== ГЕНЕРАЦИЯ 1000 УРОВНЕЙ ==========
+    const levelSelect = document.getElementById('appLevel');
+    if(levelSelect) {
+        for(let i = 1; i <= 1000; i++) {
+            let days = i * 2;
+            let option = document.createElement('option');
+            option.value = ${i} лвл (${days} дней);
+            option.textContent = ${i} лвл (${days} дней);
+            levelSelect.appendChild(option);
+        }
+    }
+
+    // ========== GitHub ==========
+    const GITHUB_TOKEN = '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';
+    const REPO_OWNER = 'palexm0905-ai';
+    const REPO_NAME = 'aeterno-forum';
+
+    async function sendToGitHub(title, body, labels) {
+        try {
+            const res = await fetch(https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/issues, {
+                method: 'POST',
+                headers: {
+                    'Authorization': token ${GITHUB_TOKEN},
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title, body, labels })
+            });
+            if (res.ok) return { success: true };
+            const err = await res.json();
+            return { success: false, error: err.message };
+        } catch(e) {
+            return { success: false, error: e.message };
+        }
+    }
+
+    // ========== ЗАЯВКА ==========
+    const trigger = document.getElementById('applicationTrigger');
+    const sample = document.getElementById('applicationSample');
+    if(trigger) trigger.onclick = () => sample.style.display = sample.style.display === 'none' ? 'block' : 'none';
+    const appForm = document.getElementById('appForm');
+    if(appForm) {
+        appForm.onsubmit = async (e) => {
+            e.preventDefault();
+            const nick = document.getElementById('appNick').value.trim();
+            const level = document.getElementById('appLevel').value;
+            const text = document.getElementById('appText').value.trim();
+            if(!nick  !level  !text) {
+                document.getElementById('appStatus').innerHTML = '❌ Заполните все поля!';
+                return;
+            }
+            document.getElementById('appStatus').innerHTML = '⏳ Отправка...';
+            const title = 📌 Заявка от ${nick};
+            const body = **Ник:** ${nick}\n**Уровень:** ${level}\n**Текст:**\n${text};
+            const result = await sendToGitHub(title, body, ['Заявка']);
+            if(result.success) {
+                document.getElementById('appStatus').innerHTML = '✅ Заявка отправлена!';
+                appForm.reset();
+                sample.style.display = 'none';
+            } else {
+                document.getElementById('appStatus').innerHTML = ❌ Ошибка: ${result.error};
+            }
+        };
+    }
+
+    // ========== ПРОМОКОДЫ ==========
+    const promoBtn = document.getElementById('activatePromoBtn');
+    const promoInput = document.getElementById('promoCode');
+    if(promoBtn) {
+        promoBtn.onclick = async () => {
+            const promo = prom
+
+oInput.value.trim();
+            if(!promo) {
+                document.getElementById('promoStatus').innerHTML = '❌ Введите промокод!';
+                return;
+            }
+            document.getElementById('promoStatus').innerHTML = '⏳ Отправка...';
+            const title = 🎁 Активация: ${promo};
+            const body = **Промокод:** ${promo}\n**Игрок:** Аноним\n**Статус:** Ожидает проверки;
+            const result = await sendToGitHub(title, body, ['Промокод']);
+            if(result.success) {
+                document.getElementById('promoStatus').innerHTML = '✅ Промокод отправлен на проверку!';
+                promoInput.value = '';
+            } else {
+                document.getElementById('promoStatus').innerHTML = ❌ ${result.error};
+            }
+        };
+    }
+
+    document.getElementById('copyPartnerInvite')?.addEventListener('click', () => {
+        navigator.clipboard.writeText('CFDUULR6');
+        alert('Скопировано');
+    });
+
+    // ========== МИНИ-ИГРЫ ==========
+    const gameArea = document.getElementById('gameArea');
+
+    function loadGuess() {
+        let secret = Math.floor(Math.random()*100)+1;
+        gameArea.innerHTML = <h3>🔢 Угадай число (1-100)</h3><div class="guess-number">❓</div><input id="guessInput" placeholder="Число" style="width:100%; padding:10px; border-radius:40px;"><button id="guessBtn" style="width:100%; margin-top:10px; background:var(--accent-color); color:white; padding:10px; border-radius:40px;">Угадать</button><button id="guessReset" style="margin-top:10px; padding:8px; border-radius:40px;">Новая игра</button><p id="guessMsg"></p>;
+        const display = document.querySelector('.guess-number');
+        const msg = document.getElementById('guessMsg');
+        const guessBtn = document.getElementById('guessBtn');
+        const guessReset = document.getElementById('guessReset');
+        const guessInput = document.getElementById('guessInput');
+        guessBtn.onclick = () => {
+            let val = parseInt(guessInput.value);
+            if(isNaN(val)) { msg.innerText = '❌ Введи число!'; return; }
+            display.style.animation = 'none'; setTimeout(() => display.style.animation = 'pulseNumber 1s infinite', 10);
+            if(val === secret) {
+                msg.innerText = 🎉 Угадал! ${secret};
+                display.innerText = secret;
+                secret = Math.floor(Math.random()*100)+1;
+                setTimeout(() => display.innerText = '❓', 1200);
+            } else if(val < secret) msg.innerText = '📈 Больше!';
+            else msg.innerText = '📉 Меньше!';
+            guessInput.value = '';
+        };
+        guessReset.onclick = () => {
+            secret = Math.floor(Math.random()*100)+1;
+            display.innerText = '❓';
+            msg.innerText = 'Новая игра!';
+        };
+    }
+
+    function loadRPS() {
+        gameArea.innerHTML = <h3>✂️ Камень-ножницы-бумага</h3><div class="rps-arena"><div class="rps-card" id="playerCard"><div>Ты</div><div class="rps-choice-icon" id="playerIcon">❓</div></div><div class="rps-card" id="botCard"><div>Бот</div><div class="rps-choice-icon" id="botIcon">❓</div></div></div><div class="rps-buttons" style="display:flex; gap:10px; justify-content:center;"><button data-c="камень" style="background:var(--accent-color); color:white; padding:10px 20px; border-radius:40px;">🪨 Камень</button><button data-c="ножницы" style="background:var(--accent-color); color:white; padding:10px 20px; border-radius:40px;">✂️ Ножницы</button><button data-c="бумага" style="background:var(--accent-color); color:white; padding:10px 20px; border-radius:40px;">📄 Бумага</button></div><p id="rpsResult" style="text-align:center; margin-top:15px;"></p>;
+        const pIcon = document.getElementById('playerIcon');
+        const bIcon = document.getElementById('botIcon');
+        const pCard = document.getElementById('playerCard');
+        const bCard = document.getElementById('botCard');
+        const res = document.getElementById('rpsResult');
+        const emoji = { 'камень':'🪨', 'ножницы':'✂️', 'бумага':'📄' };
+        function w
+
+inner(p, b) {
+            if(p === b) return 'draw';
+            if((p==='камень'&&b==='ножницы')(p==='ножницы'&&b==='бумага')(p==='бумага'&&b==='камень')) return 'player';
+            return 'bot';
+        }
+        document.querySelectorAll('[data-c]').forEach(btn => {
+            btn.onclick = () => {
+                let p = btn.dataset.c;
+                pIcon.innerText = emoji[p];
+                pCard.classList.add('rps-shake-player');
+                bCard.classList.add('rps-shake-bot');
+                setTimeout(() => {
+                    pCard.classList.remove('rps-shake-player');
+                    bCard.classList.remove('rps-shake-bot');
+                }, 300);
+                setTimeout(() => {
+                    let bot = ['камень','ножницы','бумага'][Math.floor(Math.random()*3)];
+                    bIcon.innerText = emoji[bot];
+                    let w = winner(p, bot);
+                    if(w === 'player') {
+                        res.innerText = 🏆 Победа! ${p} побеждает ${bot};
+                        pCard.classList.add('rps-bounce');
+                        setTimeout(() => pCard.classList.remove('rps-bounce'), 300);
+                    } else if(w === 'bot') {
+                        res.innerText = 💀 Поражение! ${bot} побеждает ${p};
+                        bCard.classList.add('rps-bounce');
+                        setTimeout(() => bCard.classList.remove('rps-bounce'), 300);
+                    } else {
+                        res.innerText = 🤝 Ничья! ${p} vs ${bot};
+                        pCard.classList.add('rps-bounce');
+                        bCard.classList.add('rps-bounce');
+                        setTimeout(() => {
+                            pCard.classList.remove('rps-bounce');
+                            bCard.classList.remove('rps-bounce');
+                        }, 300);
+                    }
+                }, 300);
+            };
+        });
+    }
+
+    function loadClicker() {
+        let clicks = 0;
+        let record = localStorage.getItem('clickerRecord') ? parseInt(localStorage.getItem('clickerRecord')) : 0;
+        gameArea.innerHTML = <h3>⚡ Кликер</h3><div style="position:relative; height:220px; background:#eef3fc; border-radius:24px; margin:15px 0;"><div id="clickerCircle" class="clicker-circle" style="left:40px; top:40px;">0</div></div><div>Кликов: <span id="clickCount">0</span></div><div>🏆 Рекорд: <span id="clickRecord">${record}</span></div><button id="resetClickerBtn" style="margin-top:10px;">Сброс</button>;
+        let circle = document.getElementById('clickerCircle');
+        let countSpan = document.getElementById('clickCount');
+        let recordSpan = document.getElementById('clickRecord');
+        let parent = circle.parentElement;
+        function getPos() {
+            return {
+                left: Math.random() * (parent.clientWidth - 100) + 'px',
+                top: Math.random() * (parent.clientHeight - 100) + 'px'
+            };
+        }
+        function updateSize() {
+            let size = Math.max(50, 100 - Math.floor(clicks / 10) * 5);
+            circle.style.width = size + 'px';
+            circle.style.height = size + 'px';
+            circle.style.fontSize = (size * 0.5) + 'px';
+        }
+        circle.onclick = () => {
+            clicks++;
+            countSpan.innerText = clicks;
+            circle.innerText = clicks;
+            updateSize();
+            if(clicks > record) {
+                record = clicks;
+                localStorage.setItem('clickerRecord', record);
+                recordSpan.innerText = record;
+            }
+            let pos = getPos();
+            circle.style.left = pos.left;
+            circle.style.top = pos.top;
+        };
+        document.getElementById('resetClickerBtn').onclick = () => {
+            clicks = 0;
+            countSpan.innerText = clicks;
+            circle.innerText = clicks;
+            updateSize();
+        };
+        updateSize();
+    }
+
+    function loadCoin() {
+        gameArea.innerHTML = `<h3>🪙 Орёл и решка</h3><div style="perspective:600px;"><div id="coin3d" class=
+
+"coin-3d"><div class="coin-side coin-front">🦅</div><div class="coin-side coin-back">🪙</div></div></div><button id="flipCoinBtn" style="background:var(--accent-color); color:white; padding:12px 24px; border-radius:40px;">Подбросить</button><p id="coinMsg" style="margin-top:15px;"></p>;
+        let coin = document.getElementById('coin3d');
+        let msg = document.getElementById('coinMsg');
+        let flipping = false;
+        document.getElementById('flipCoinBtn').onclick = () => {
+            if(flipping) return;
+            flipping = true;
+            coin.classList.add('flip-animation');
+            let heads = Math.random() < 0.5;
+            setTimeout(() => {
+                if(heads) {
+                    coin.style.transform = 'rotateY(0deg)';
+                    msg.innerText = '🦅 Орёл!';
+                } else {
+                    coin.style.transform = 'rotateY(180deg)';
+                    msg.innerText = '🪙 Решка!';
+                }
+                coin.classList.remove('flip-animation');
+                flipping = false;
+            }, 800);
+        };
+    }
+
+    document.querySelectorAll('.game-card').forEach(card => {
+        card.addEventListener('click', () => {
+            let g = card.dataset.game;
+            if(g === 'guess') loadGuess();
+            else if(g === 'clicker') loadClicker();
+            else if(g === 'rps') loadRPS();
+            else if(g === 'coin') loadCoin();
+        });
+    });
+
+    // ========== ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК ==========
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active-tab'));
+        document.getElementById(tabId).classList.add('active-tab');
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            if(btn.dataset.tab === tabId) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+    }
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+    });
+
+    // ========== СКРЫТАЯ АДМИН-ПАНЕЛЬ (доступ по команде, без подсказок) ==========
+    let adminActive = false;
+    let adminPanel = null;
+
+    function enableAdminMode() {
+        if(adminActive) return;
+        adminActive = true;
+        document.querySelectorAll('.card, #mainTitle, #inviteBlock, #mainDesc, #featuresList, .partner-card').forEach(el => el.classList.add('editable'));
+        adminPanel = document.createElement('div');
+        adminPanel.className = 'admin-panel';
+        adminPanel.style.display = 'block';
+        adminPanel.innerHTML = <h4>⚙️ Панель управления</h4>
+            <button id="editTextBtn">✏️ Редактировать текст</button>
+            <button id="addBlockBtn">➕ Добавить блок/вкладку</button>
+            <hr>
+            <input id="newPromoCode" placeholder="Промокод (например SUMMER)">
+            <input id="newPromoActivations" placeholder="Кол-во активаций">
+            <input id="newPromoReward" placeholder="Что даёт (например 100 монет)">
+            <button id="createPromoBtn">🎁 Создать промокод</button>
+            <hr>
+            <label>🎨 Цвет фона</label><input type="color" id="bgColorPicker" value="#f5f7ff">
+            <label>🎨 Цвет акцента</label><input type="color" id="accentColorPicker" value="#0a5ca8">
+            <button id="applyColorsBtn">Применить цвета</button>
+            <button id="exitAdminBtn">🚪 Выйти</button>`;
+        document.body.appendChild(adminPanel);
+
+        let selectedElement = null;
+        document.querySelectorAll('.editable').forEach(el => {
+            el.addEventListener('click', (e) => {
+                e.stopPropagation();
+                selectedElement = e.currentTarget;
+            });
+        });
+        document.getElementById('editTextBtn').onclick = () => {
+            if(selectedElement) {
+                let newVal = prompt('Новый текст:', selectedElement.innerText);
+                if(newVal !== null) selectedElement.innerText = newVal;
+            } else alert('Сначала нажми на текст, который хочешь изменить');
+        };
+
+document.getElementById('addBlockBtn').onclick = () => {
+            let type = prompt('Что добавить? (текст / вкладка)');
+            if(type === 'текст') {
+                let newCard = document.createElement('div');
+                newCard.className = 'card editable';
+                newCard.innerHTML = '<h2>Новый блок</h2><p>Ваш текст</p>';
+                document.querySelector('.container').appendChild(newCard);
+                newCard.classList.add('editable');
+                newCard.addEventListener('click', (e) => { selectedElement = e.currentTarget; });
+            } else if(type === 'вкладка') {
+                let name = prompt('Название вкладки:');
+                if(name) {
+                    let id = 'tab' + Date.now();
+                    let btn = document.createElement('button');
+                    btn.className = 'tab-btn';
+                    btn.dataset.tab = id;
+                    btn.innerText = name;
+                    document.getElementById('tabsContainer').appendChild(btn);
+                    let cont = document.createElement('div');
+                    cont.id = id;
+                    cont.className = 'tab-content';
+                    cont.innerHTML = '<div class="card"><h2>Новая вкладка</h2><p>Содержимое...</p></div>';
+                    document.querySelector('.container').appendChild(cont);
+                    btn.onclick = () => switchTab(id);
+                }
+            }
+        };
+        document.getElementById('applyColorsBtn').onclick = () => {
+            let bg = document.getElementById('bgColorPicker').value;
+            let acc = document.getElementById('accentColorPicker').value;
+            if(bg) document.documentElement.style.setProperty('--body-bg', bg);
+            if(acc) document.documentElement.style.setProperty('--accent-color', acc);
+            localStorage.setItem('adminColors', JSON.stringify({bg: bg, accent: acc}));
+        };
+        document.getElementById('createPromoBtn').onclick = async () => {
+            const code = document.getElementById('newPromoCode').value.trim();
+            const activations = document.getElementById('newPromoActivations').value.trim();
+            const reward = document.getElementById('newPromoReward').value.trim();
+            if(!code  !activations  !reward) {
+                alert('Заполните все поля промокода');
+                return;
+            }
+            const title = 🎁 НОВЫЙ ПРОМОКОД: ${code};
+            const body = **Промокод:** ${code}\n**Активаций:** ${activations}\n**Награда:** ${reward}\n**Создан:** ${new Date().toLocaleString()}\n**Статус:** Активен;
+            const result = await sendToGitHub(title, body, ['Промокод-новый']);
+            if(result.success) alert(✅ Промокод "${code}" создан!);
+            else alert(❌ Ошибка: ${result.error});
+            document.getElementById('newPromoCode').value = '';
+            document.getElementById('newPromoActivations').value = '';
+            document.getElementById('newPromoReward').value = '';
+        };
+        document.getElementById('exitAdminBtn').onclick = () => {
+            adminActive = false;
+            if(adminPanel) adminPanel.remove();
+            adminPanel = null;
+            document.querySelectorAll('.editable').forEach(el => el.classList.remove('editable'));
+        };
+        const savedColors = localStorage.getItem('adminColors');
+        if(savedColors) {
+            try {
+                const cl = JSON.parse(savedColors);
+                if(cl.bg) document.getElementById('bgColorPicker').value = cl.bg;
+                if(cl.accent) document.getElementById('accentColorPicker').value = cl.accent;
+            } catch(e) {}
+        }
+    }
+
+    // Скрытая активация админ-режима (без подсказок в коде)
+    let secretBuffer = '';
+    document.addEventListener('keydown', (e) => {
+        const key = e.key.toLowerCase();
+        if(/^[a-z0-9]$/.test(key)) {
+            secretBuffer += key;
+            if(secretBuffer.length > 20) secretBuffer = secretBuffer.slice(-20);
+            if(secretBuffer.includes('aksamor6382')) {
+
+if(!adminActive) enableAdminMode();
+                else {
+                    adminActive = false;
+                    if(adminPanel) adminPanel.remove();
+                    adminPanel = null;
+                    document.querySelectorAll('.editable').forEach(el => el.classList.remove('editable'));
+                }
+                secretBuffer = '';
+                e.preventDefault();
+            }
+        }
+    });
+
+    const savedColors = localStorage.getItem('adminColors');
+    if(savedColors) {
+        try {
+            const cl = JSON.parse(savedColors);
+            if(cl.bg) document.documentElement.style.setProperty('--body-bg', cl.bg);
+            if(cl.accent) document.documentElement.style.setProperty('--accent-color', cl.accent);
+        } catch(e) {}
+    }
+</script>
+</body>
+                                                     </html>
